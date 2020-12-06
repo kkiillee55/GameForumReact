@@ -49,6 +49,7 @@ export default class Post extends Component {
                 //window.location.reload(false)
             }).catch(error=>{
                 console.log('refresh token also expired' ,error.response.data)
+                this.props.history.push('/user/login')
             })
         })
         
@@ -117,26 +118,27 @@ export default class Post extends Component {
                                     const [comment_id,action]=elem.href.split('/').splice(5,6)
                                     return <Link className='smallLink' to={`/game/${game_title}/${post_id}/${comment_id}/${action}`} key={i}>{elem.rel}</Link>
                                 })}
+                                {responses.length!==0 &&  
+                                    <div >
+                                        <br/>
+                                        Responses:
+                                        {responses.map((elem,i)=>{
+                                            return (
+                                                <div className='response' key={i}>
+                                                    <h4>{elem.datetime}</h4>
+                                                    <h4>{elem.email}</h4>
+                                                    <p>{elem.comment_text}</p>
+                                                    {elem.links.map((elem,i)=>{
+                                                        // console.log(elem)
+                                                        const [comment_parent_id,comment_id,action]=elem.href.split('/').splice(5,7)
+                                                        return <Link className='smallLink' to={`/game/${game_title}/${post_id}/${comment_parent_id}/${comment_id}/${action}`} key={i}>{elem.rel}</Link>
+                                                    })}
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                }
                             </div>
-
-                            {responses.length!==0 &&  
-                                <div className='response'>
-                                    Responses:
-                                    {responses.map((elem,i)=>{
-                                        return (
-                                            <div key={i}>
-                                                <h4>{elem.datetime}</h4>
-                                                <h4>{elem.email}</h4>
-                                                <p>{elem.comment_text}</p>
-                                                {elem.links.map((elem,i)=>{
-                                                    const [comment_parent_id,comment_id,action]=elem.split('/').splice(5,7)
-                                                    return <Link className='smallLink' to={`/game/${game_title}/${post_id}/${comment_parent_id}/${comment_id}/${action}`} key={i}>{elem.rel}</Link>
-                                                })}
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                            }
                         </div>
                         
                     )

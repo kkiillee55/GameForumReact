@@ -29,7 +29,9 @@ export default class Home extends Component {
                         {this.state.links.map((elem,i)=>{
                             return(
                                 <li key={i}>
-                                    <Link to={`${elem.rel}`}>{elem.rel}</Link>
+                                    <Link to={{
+                                        pathname:`${elem.rel}`,
+                                    }}>{elem.rel}</Link>
                                 </li>
                             )
                         })}
@@ -39,3 +41,4 @@ export default class Home extends Component {
         )
     }
 }
+

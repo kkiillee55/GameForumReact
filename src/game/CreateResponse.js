@@ -5,7 +5,8 @@ export default class CreateResponse extends Component {
     constructor(){
         super()
         this.state={
-            response:''
+            response:'',
+            error:'',
         }
 
         this.handleResponseChange=this.handleResponseChange.bind(this)
@@ -24,17 +25,43 @@ export default class CreateResponse extends Component {
         const game_title=this.props.match.params.game_title
         const post_id=this.props.match.params.post_id
         const comment_id=this.props.match.params.comment_id
-        console.log(this.state.response)
-        Axios.post(`http://127.0.0.1/api/game/${game_title}/${post_id}/${comment_id}/create_response`,{
+        //console.log(this.state.response)
+        Axios.post(`http://127.0.0.1:5000/api/game/${game_title}/${post_id}/${comment_id}/create_response`,{
            comment_text:this.state.response 
         },{
             headers:{
                 Authorization:'token '+Cookies.get('token')
             }
         }).then(response=>{
-            console.log(response.data)
+            //console.log(response)
+            this.setState({
+                response:'',
+                error:'',
+            })
+            this.props.history.push(`/game/${game_title}/${post_id}`)
+            //console.log(this.props.history)
         }).catch(error=>{
-            console.log(error.response.data)
+            const code=error.response.status
+            this.setState({
+                error:error.response.data.msg
+            })
+            console.log(error.response)
+            if (code===440){
+                Axios.post('http://127.0.0.1:5000/api/user/refresh_token',{},{
+                    headers:{
+                        Authorization: 'refresh_token '+Cookies.get('refresh_token')
+                    }
+                }).then(response=>{
+                    Cookies.set('token',response.data.token)
+                    this.setState({
+                        error:''
+                    })
+                }).catch(error=>{
+                    if(error.response.status===440){
+                        this.props.history.push('/user/login')
+                    }
+                })
+            }
         })
     }
 
@@ -44,6 +71,14 @@ export default class CreateResponse extends Component {
     render() {
         return (
             <div>
+                {
+                    this.state.error!=='' &&
+                    <div className='error'>
+                        {this.state.error}
+                    </div>
+
+                }
+
                 <h1>Response to:</h1>
                 <h3>Game: {this.props.match.params.game_title}</h3>
                 <h3>Post id: {this.props.match.params.post_id}</h3>

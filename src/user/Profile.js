@@ -48,6 +48,7 @@ export default class Profile extends Component {
                 Cookies.set('token',response.data.token)
             }).catch(error=>{
                 console.log('refresh token also expired,please login first ',error.response)
+                this.props.history.push('/user/login')
             })
         })
     }

@@ -26,7 +26,7 @@ export default class User extends Component {
         })
     }
     render() {
-        //console.log(this.state)
+        //console.log(this.props)
         return (
             <div>
                 <h1>This is user page</h1>
