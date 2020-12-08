@@ -2,6 +2,8 @@ import Axios from 'axios'
 import React, { Component } from 'react'
 import Cookies from 'js-cookie'
 import {Redirect, Route} from 'react-router-dom'
+import GoogleAccountLogin from './GoogleAccountLogin'
+import GoogleAccountLogout from './GoogleAccountLogout'
 export default class Login extends Component {
     constructor(){
         super()
@@ -75,6 +77,8 @@ export default class Login extends Component {
                     <br/>
                     <input type='submit' value='Submit'/>
                 </form>
+                <br/>
+                <GoogleAccountLogin hist={this.props.history}/>
             </div>
         )
     }

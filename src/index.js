@@ -16,6 +16,7 @@ import Home from'./Home'
 //user components
 import User from './user/User'
 import Login from './user/Login'
+import GoogleAccount from './user/GoogleAccount'
 import Logout from './user/Logout'
 import Profile from './user/Profile'
 import Register from './user/Register'
@@ -23,6 +24,7 @@ import ForgotPassword from './user/ForgotPassword'
 import ResetPassword from './user/ResetPassword'
 import RequestActivateAccount from'./user/RequestActivateAccount'
 import ActivateAccount from './user/ActivateAccount'
+import GamePosts from './game/GamePosts'
 
 class App extends Component{
     constructor(){
@@ -58,6 +60,7 @@ class App extends Component{
                     <Route exact path='/game'component={Game}/>
                     <Route exact path='/'component={Home}/>
                     <Route exact path='/user/login' component={Login}/>
+                    {/* <Route exact path='/user/google_login' component={GoogleAccount}/> */}
                     <Route exact path='/user/logout' component={Logout}/>
                     <Route exact path='/user/profile' component={Profile}/>
                     <Route exact path='/user/register' component={Register}/>
@@ -66,7 +69,7 @@ class App extends Component{
                     <Route exact path='/user/request_activate_account' component={RequestActivateAccount}/>
                     <Route exact path='/user/activate_account/:activate_token' component={ActivateAccount}/>
 
-
+                    <Route exact path='/game/:game_title' component={GamePosts}/>
                     <Route exact path='/game/:game_title/:post_id' component={Post}/>
                     <Route exact path='/game/:game_title/:post_id/:comment_id/create_response' component={CreateResponse}/>
                     <Route exact path='/game/:game_title/:post_id/:comment_parent_id/:comment_id/update_response' component={UpdateResponse}/>

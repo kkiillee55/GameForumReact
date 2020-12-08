@@ -79,3 +79,9 @@ button:hover{
   background-color: rgb(184, 241, 126);
   width: 50%;
 }
+
+.post_view{
+  background-color: salmon;
+  margin-bottom: 20px;
+  padding: 10px;
+}
