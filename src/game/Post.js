@@ -36,7 +36,7 @@ export default class Post extends Component {
             }
         }).then(response=>{
             console.log(response.data)
-            //window.location.reload(false)
+            window.location.reload()
         }).catch(error=>{
             //console.log(error.response.data)
             Axios.post('http://127.0.0.1:5000/api/user/refresh_token',{},{
@@ -58,6 +58,7 @@ export default class Post extends Component {
     }
 
     componentDidMount(){
+        console.log(this.props)
         const game_title=this.props.match.params.game_title
         const post_id=this.props.match.params.post_id
         Axios.get(`http://127.0.0.1:5000/api/game/${game_title}/${post_id}`,{
@@ -77,10 +78,12 @@ export default class Post extends Component {
         }).catch(error=>{
             console.log(error.response)
         })
+        
     }
 
 
     render() {
+        
         const ordered_comments=this.state.comments
         ordered_comments.sort((a,b)=>{
             return new Date(b.datetime)-new Date(a.datetime)
@@ -93,6 +96,8 @@ export default class Post extends Component {
                     <h1>{this.state.title}</h1>
                     <h3>{this.state.author}</h3>
                     <h3>{this.state.date_posted}</h3>
+
+                    <Link className="smallLink" to={`/game/${game_title}/${post_id}/delete`}>Delete post</Link>
                 </div>
                 
                 <p>{this.state.content}</p>

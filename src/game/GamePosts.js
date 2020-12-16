@@ -44,6 +44,16 @@ export default class GamePosts extends Component {
                         })
                     }
                 </div>
+                <div>
+                    {
+                        this.state.links.map((elem,i)=>{
+                            return <li key={i}>
+                                <Link to={`/game/${game_title}/${elem.rel}`}>{elem.rel}</Link>
+                            </li>
+                        })
+                    }
+                </div>
+                <br/>
                 {
                     this.state.posts.map((elem,i)=>{
                         return <div className='post_view' key={i}>

@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-
+import Cookies from 'js-cookie'
 export default class Game extends Component {
     constructor(){
         super()

@@ -82,7 +82,7 @@ export default class Register extends Component {
                 error:''
             })
             alert('please check you email for activation link')
-            this.props.history.push('/user/login')
+            window.location.reload()
         }).catch(error=>{
             console.log(error.response)
             this.setState({

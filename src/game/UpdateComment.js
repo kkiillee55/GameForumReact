@@ -6,6 +6,7 @@ export default class UpdateComment extends Component {
         super()
         this.state={
             new_comment:'',
+            version_id:'',
             error:''
         }
         this.handleCommentChange=this.handleCommentChange.bind(this)
@@ -28,6 +29,7 @@ export default class UpdateComment extends Component {
         const comment_id=this.props.match.params.comment_id
         Axios.patch(`http://127.0.0.1:5000/api/game/${game_title}/${post_id}/${comment_id}/update_comment`,{
             comment_text:this.state.new_comment,
+            version_id:this.state.version_id
         },{
             headers:{
                 Authorization:'token '+Cookies.get('token')
@@ -66,6 +68,42 @@ export default class UpdateComment extends Component {
         const post_id=this.props.match.params.post_id
         this.props.history.push(`/game/${game_title}/${post_id}`)
 
+    }
+
+    componentDidMount(){
+        const game_title=this.props.match.params.game_title
+        const post_id=this.props.match.params.post_id
+        const comment_id=this.props.match.params.comment_id
+        Axios.get(`http://127.0.0.1:5000/api/game/${game_title}/${post_id}/${comment_id}/update_comment`,{
+            headers:{
+                Authorization:'token '+Cookies.get('token')
+            }
+        }).then(response=>{
+            this.setState({
+                version_id:response.data.version_id
+            })
+            console.log('version_id',this.state.version_id)
+        }).catch(error=>{
+            const code=error.response.status
+            if (code==400){
+                this.setState({
+                    error:error.response.data.msg
+                })
+                console.log(this.state.error)
+            }
+            if (code==440){
+                Axios.post('http://127.0.0.1:5000/api/user/refresh_token',{},{
+                    headers:{
+                        Authorization:'refresh_token '+Cookies.get('refresh_token')
+                    }
+                }).then(response=>{
+                    Cookies.set('token',response.data.token)
+                }).catch(error=>{
+                    this.props.history.push('/user/login')
+                })
+            }
+        })
+        
     }
 
 

@@ -25,7 +25,12 @@ import ResetPassword from './user/ResetPassword'
 import RequestActivateAccount from'./user/RequestActivateAccount'
 import ActivateAccount from './user/ActivateAccount'
 import GamePosts from './game/GamePosts'
+import NewPost from './game/NewPost'
+import Follow from './game/Follow'
+import Unfollow from'./game/Unfollow'
 
+import Navbar from './Navbar'
+import DeletePost from './game/DeletePost'
 class App extends Component{
     constructor(){
         super()
@@ -40,7 +45,7 @@ class App extends Component{
         const token=Cookies.get('token')
         const refresh_token=Cookies.get('refresh_token')
         if(token==undefined) Cookies.set('token','')
-        if(refresh_token==undefined) Cookies.set('refresh_token','')
+        if(refresh_token===undefined) Cookies.set('refresh_token','')
         Axios.get('http://127.0.0.1:5000/api/index').then(res=>{
             this.setState({
                 links:res.data.links,
@@ -54,33 +59,45 @@ class App extends Component{
         return(
             //seems we have to define all routes here 
             //and user links in sub components
-            <Router>
-                <div>
-                    <Route exact path='/user' component={User}/>
-                    <Route exact path='/game'component={Game}/>
-                    <Route exact path='/'component={Home}/>
-                    <Route exact path='/user/login' component={Login}/>
-                    {/* <Route exact path='/user/google_login' component={GoogleAccount}/> */}
-                    <Route exact path='/user/logout' component={Logout}/>
-                    <Route exact path='/user/profile' component={Profile}/>
-                    <Route exact path='/user/register' component={Register}/>
-                    <Route exact path='/user/forgot_password' component={ForgotPassword}/>
-                    <Route exact path='/user/reset_password/:reset_token' component={ResetPassword}/>
-                    <Route exact path='/user/request_activate_account' component={RequestActivateAccount}/>
-                    <Route exact path='/user/activate_account/:activate_token' component={ActivateAccount}/>
+            <div>
+                <Navbar/>
+                <Router>           
+                    <div>
+                        <Route exact path='/user' component={User}/>
+                        <Route exact path='/game'component={Game}/>
+                        <Route exact path='/'component={Home}/>
+                        <Route exact path='/user/login' component={Login}/>
+                        <Route exact path='/user/logout' component={Logout}/>
+                        <Route exact path='/user/profile' component={Profile}/>
+                        <Route exact path='/user/register' component={Register}/>
+                        <Route exact path='/user/forgot_password' component={ForgotPassword}/>
+                        <Route exact path='/user/reset_password/:reset_token' component={ResetPassword}/>
+                        <Route exact path='/user/request_activate_account' component={RequestActivateAccount}/>
+                        <Route exact path='/user/activate_account/:activate_token' component={ActivateAccount}/>
 
-                    <Route exact path='/game/:game_title' component={GamePosts}/>
-                    <Route exact path='/game/:game_title/:post_id' component={Post}/>
-                    <Route exact path='/game/:game_title/:post_id/:comment_id/create_response' component={CreateResponse}/>
-                    <Route exact path='/game/:game_title/:post_id/:comment_parent_id/:comment_id/update_response' component={UpdateResponse}/>
-                    <Route exact path='/game/:game_title/:post_id/:comment_parent_id/:comment_id/delete_response' component={DeleteResponse}/>
-                    <Route exact path='/game/:game_title/:post_id/:comment_id/update_comment' component={UpdateComment}/>
-                    <Route exact path='/game/:game_title/:post_id/:comment_id/delete_comment' component={DeleteComment}/>
-                    {/* <Route exact path='/user/register' component={Register}/>
-                    <Route exact path='/user/logout' component={Logout}/>
-                    <Route exact path='/user/google login' component={GoogleLogin}/> */}
-                </div>
-            </Router>
+
+
+
+                        <Route exact path='/game/:game_title' component={GamePosts}/>
+
+                        <Route exact path='/game/:game_title/:post_id' component={Post}/>
+                        <Route exact path='/game/:game_title/post/new_post' component={NewPost}/>
+                        <Route exact path='/game/:game_title/:post_id/delete' component={DeletePost}/>
+                        <Route exact path='/game/:game_title/action/follow' component={Follow}/>
+                        <Route exact path='/game/:game_title/action/unfollow' component={Unfollow}/>
+
+                        <Route exact path='/game/:game_title/:post_id/:comment_id/create_response' component={CreateResponse}/>
+                        <Route exact path='/game/:game_title/:post_id/:comment_parent_id/:comment_id/update_response' component={UpdateResponse}/>
+                        <Route exact path='/game/:game_title/:post_id/:comment_parent_id/:comment_id/delete_response' component={DeleteResponse}/>
+                        <Route exact path='/game/:game_title/:post_id/:comment_id/update_comment' component={UpdateComment}/>
+                        <Route exact path='/game/:game_title/:post_id/:comment_id/delete_comment' component={DeleteComment}/>
+                        
+                        {/* <Route exact path='/user/register' component={Register}/>
+                        <Route exact path='/user/logout' component={Logout}/>
+                        <Route exact path='/user/google login' component={GoogleLogin}/> */}
+                    </div>
+                </Router>
+            </div>
         )
     }
 }
