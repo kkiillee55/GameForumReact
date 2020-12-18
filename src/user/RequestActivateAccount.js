@@ -22,7 +22,7 @@ export default class RequestActivateAccount extends Component {
     handleSubmit(event){
         event.preventDefault()
         console.log(this.state)
-        Axios.post('http://127.0.0.1:5000/api/user/request_activate_account',{
+        Axios.post(`${this.props.hostname}/api/user/request_activate_account`,{
             email:this.state.email
         },{
             headers:{

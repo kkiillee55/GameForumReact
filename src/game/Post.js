@@ -28,7 +28,7 @@ export default class Post extends Component {
         event.preventDefault()
         const game_title=this.props.match.params.game_title
         const post_id=this.props.match.params.post_id
-        Axios.post(`http://127.0.0.1:5000/api/game/${game_title}/${post_id}/create_comment`,{
+        Axios.post(`${this.props.hostname}/api/game/${game_title}/${post_id}/create_comment`,{
             comment_text:this.state.your_comment
         },{
             headers:{
@@ -39,7 +39,7 @@ export default class Post extends Component {
             window.location.reload()
         }).catch(error=>{
             //console.log(error.response.data)
-            Axios.post('http://127.0.0.1:5000/api/user/refresh_token',{},{
+            Axios.post(`${this.props.hostname}/api/user/refresh_token`,{},{
                 headers:{
                     Authorization:'refresh_token '+Cookies.get('refresh_token')
                 },
@@ -61,7 +61,7 @@ export default class Post extends Component {
         console.log(this.props)
         const game_title=this.props.match.params.game_title
         const post_id=this.props.match.params.post_id
-        Axios.get(`http://127.0.0.1:5000/api/game/${game_title}/${post_id}`,{
+        Axios.get(`${this.props.hostname}/api/game/${game_title}/${post_id}`,{
             headers:{
                 Authorization:'token '+Cookies.get('token')
             }
@@ -98,6 +98,7 @@ export default class Post extends Component {
                     <h3>{this.state.date_posted}</h3>
 
                     <Link className="smallLink" to={`/game/${game_title}/${post_id}/delete`}>Delete post</Link>
+                    <Link className="smallLink" to={`/game/${game_title}/${post_id}/update`}>Update post</Link>
                 </div>
                 
                 <p>{this.state.content}</p>

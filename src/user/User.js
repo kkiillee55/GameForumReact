@@ -14,7 +14,7 @@ export default class User extends Component {
 
     componentDidMount(){
         //so why do i need to add trailing slash after user?
-        Axios.get('http://127.0.0.1:5000/api/user/',{
+        Axios.get(`${this.props.hostname}/api/user/`,{
             headers:{
                 Authorization: 'token '+Cookies.get('token'),
             }
@@ -27,6 +27,7 @@ export default class User extends Component {
     }
     render() {
         //console.log(this.props)
+        // console.log('this is props',this.props.hostname)
         return (
             <div>
                 <h1>This is user page</h1>

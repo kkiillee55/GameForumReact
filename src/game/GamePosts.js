@@ -16,7 +16,7 @@ export default class GamePosts extends Component {
 
     componentDidMount(){
         const game_title=this.props.match.params.game_title
-        Axios.get(`http://127.0.0.1:5000/api/game/${game_title}`,{
+        Axios.get(`${this.props.hostname}/api/game/${game_title}`,{
             headers:{
                 Authorization:'token '+Cookies.get('token') 
             }

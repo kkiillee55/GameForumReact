@@ -29,7 +29,7 @@ export default class GoogleAccountLogin extends Component {
             console.log('newAuthRes: ',newAuthRes)
             console.log('new auth token',newAuthRes.id_token)
             
-            const flask_response=await Axios.post('http://127.0.0.1:5000/api/user/google_login',{
+            const flask_response=await Axios.post(`${this.props.hostname}/api/user/google_login`,{
                 email:this.state.email,
                 first_name:this.state.first_name,
                 last_name:this.state.last_name
@@ -57,7 +57,7 @@ export default class GoogleAccountLogin extends Component {
             first_name:response.profileObj.givenName,
             last_name:response.profileObj.familyName,
         })
-        Axios.post('http://127.0.0.1:5000/api/user/google_login',{
+        Axios.post(`${this.props.hostname}/api/user/google_login`,{
                 email:this.state.email,
                 first_name:this.state.first_name,
                 last_name:this.state.last_name

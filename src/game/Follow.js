@@ -13,7 +13,7 @@ export default class Follow extends Component {
 
     handleFollow(event){
         const game_title=this.props.match.params.game_title
-        Axios.post(`http://127.0.0.1:5000/api/game/${game_title}/follow`,{},{
+        Axios.post(`${this.props.hostname}/api/game/${game_title}/follow`,{},{
             headers:{
                 Authorization:'token '+Cookies.get('token')
             }
@@ -29,7 +29,7 @@ export default class Follow extends Component {
         }).catch(error=>{
             const code=error.response.status
             if(code==440){
-                Axios.post('http://127.0.0.1:5000/api/user/refresh_token',{},{
+                Axios.post(`${this.props.hostname}/api/user/refresh_token`,{},{
                     headers:{
                         Authorization:'refresh_token '+Cookies.get('refresh_token')
                     }

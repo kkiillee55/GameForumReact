@@ -26,7 +26,7 @@ export default class ResetPassword extends Component {
         event.preventDefault()
         console.log(this.state)
         const reset_token=this.props.match.params.reset_token
-        Axios.post(`http://127.0.0.1:5000/api/user/reset_password/${reset_token}`,{
+        Axios.post(`${this.props.hostname}/api/user/reset_password/${reset_token}`,{
             password:this.state.password,
             confirm_password:this.state.confirm_password
         },{

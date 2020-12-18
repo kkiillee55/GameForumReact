@@ -32,7 +32,7 @@ export default class Login extends Component {
     }
     handleSubmit(event){
         event.preventDefault()
-        Axios.post('http://127.0.0.1:5000/api/user/login',{
+        Axios.post(`${this.props.hostname}/api/user/login`,{
             email:this.state.email,
             password:this.state.password
         }).then((response)=>{
@@ -78,7 +78,7 @@ export default class Login extends Component {
                     <input type='submit' value='Submit'/>
                 </form>
                 <br/>
-                <GoogleAccountLogin hist={this.props.history}/>
+                <GoogleAccountLogin hist={this.props.history} hostname={this.props.hostname}/>
             </div>
         )
     }

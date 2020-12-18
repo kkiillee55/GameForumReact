@@ -23,7 +23,7 @@ export default class ForgotPassword extends Component {
 
     handleSubmit(event){
         event.preventDefault()
-        Axios.post('http://127.0.0.1:5000/api/user/forgot_password',{
+        Axios.post(`${this.props.hostname}/api/user/forgot_password`,{
             email:this.state.email
         },{
             headers:{
@@ -37,7 +37,7 @@ export default class ForgotPassword extends Component {
             const code=error.response.status
             //console.log(error.response)
             if(code==440){
-                Axios.post('http://127.0.0.1:5000/api/user/refresh_token',{},{
+                Axios.post(`${this.props.hostname}/api/user/refresh_token`,{},{
                     headers:{
                         Authorization: 'refresh_token '+Cookies.get('refresh_token')
                     }

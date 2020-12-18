@@ -38,7 +38,7 @@ export default class Register extends Component {
         this.setState({
             address:value
         })
-        Axios.get(`http://127.0.0.1:5000/api/user/address_auto_complete`,{params:{address:value}}).then(response=>{
+        Axios.get(`${this.props.hostname}/api/user/address_auto_complete`,{params:{address:value}}).then(response=>{
             //console.log(response.data.suggestions)
             this.setState({
                 choose_address_from_suggestions:false,
@@ -71,7 +71,7 @@ export default class Register extends Component {
             })
             return
         }
-        Axios.post('http://127.0.0.1:5000/api/user/register',{
+        Axios.post(`${this.props.hostname}/api/user/register`,{
             first_name:this.state.first_name,
             last_name:this.state.last_name,
             email:this.state.email,

@@ -17,14 +17,14 @@ export default class DeletePost extends Component {
     handleDelete(event){
         const game_title=this.props.match.params.game_title
         const post_id=this.props.match.params.post_id
-        Axios.delete(`http://127.0.0.1:5000/api/game/${game_title}/${post_id}/delete`,{
+        Axios.delete(`${this.props.hostname}/api/game/${game_title}/${post_id}/delete`,{
             headers:{
                 Authorization: 'token '+Cookies.get('token')
             }
         }).then(response=>{
             this.props.history.push(`/game/${game_title}`)
         }).catch(error=>{
-            Axios.post('http://127.0.0.1:5000/api/user/refresh_token',{},{
+            Axios.post(`${this.props.hostname}/api/user/refresh_token`,{},{
                 headers:{
                     Authorization:'refresh_token '+Cookies.get('refresh_token')
                 }

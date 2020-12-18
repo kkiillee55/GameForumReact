@@ -1,7 +1,8 @@
 import Axios from 'axios'
 import React, { Component } from 'react'
 import Cookies from 'js-cookie'
-export default class NewPost extends Component {
+
+export default class UpdatePost extends Component {
 
 
     constructor(){
@@ -27,9 +28,10 @@ export default class NewPost extends Component {
 
     handleSubmit(event){
         const game_title=this.props.match.params.game_title
+        const post_id=this.props.match.params.post_id
         event.preventDefault()
         console.log(this.state)
-        Axios.post(`${this.props.hostname}/api/game/${game_title}/new_post`,{
+        Axios.patch(`${this.props.hostname}/api/game/${game_title}/${post_id}/update`,{
             title:this.state.title,
             content:this.state.content
         },{
@@ -40,10 +42,10 @@ export default class NewPost extends Component {
             this.setState({
                 title:'',
                 content:'',
-                error:'post created'
+                error:'post updated'
             })
             setTimeout(() => {
-                this.props.history.push(`/game/${game_title}/${response.data.post_id}`)
+                this.props.history.push(`/game/${game_title}/${post_id}`)
             }, 1000);
         }).catch(error=>{
             const code=error.response.status
@@ -71,6 +73,21 @@ export default class NewPost extends Component {
         })
     }
 
+    componentDidMount(){
+        const game_title=this.props.match.params.game_title
+        const post_id=this.props.match.params.post_id
+        Axios.get(`${this.props.hostname}/api/game/${game_title}/${post_id}/update`,{
+            headers:{
+                Authorization: 'refresh_token '+Cookies.get('refresh_token')
+            }
+        }).then(response=>{
+            this.setState({
+                title:response.data.title,
+                content:response.data.content
+            })
+        })
+    }
+
     render() {
 
         
@@ -78,7 +95,7 @@ export default class NewPost extends Component {
         
         return (
             <div>
-                <h1>this is the page for creating new post</h1>
+                <h1>this is the page for update current post</h1>
                 {
                     this.state.error.length!==0 &&
                     <h2>{this.state.error}</h2>

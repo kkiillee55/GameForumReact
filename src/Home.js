@@ -12,7 +12,7 @@ export default class Home extends Component {
 
 
     componentDidMount(){
-        Axios.get('http://127.0.0.1:5000/api/index/').then(res=>{
+        Axios.get(`${this.props.hostname}/api/index/`).then(res=>{
             this.setState({
                 links:res.data.links,
                 msg:res.data.msg

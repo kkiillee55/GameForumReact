@@ -28,7 +28,7 @@ export default class Profile extends Component {
 
     componentDidMount(){
         //so why i do not need to add trailing slash after profile?
-        Axios.get('http://127.0.0.1:5000/api/user/profile',{
+        Axios.get(`${this.props.hostname}/api/user/profile`,{
             headers:{
                 Authorization:'token '+Cookies.get('token') 
             }
@@ -47,7 +47,7 @@ export default class Profile extends Component {
             //post request
             //Axios.post(href, data, header)
             //empty data, header contain authorization
-            Axios.post('http://127.0.0.1:5000/api/user/refresh_token',{},{
+            Axios.post(`${this.props.hostname}/api/user/refresh_token`,{},{
                 headers:{
                     Authorization:'refresh_token '+Cookies.get('refresh_token')
                 },
@@ -73,7 +73,7 @@ export default class Profile extends Component {
         this.setState({
             address:value
         })
-        Axios.get(`http://127.0.0.1:5000/api/user/address_auto_complete`,{params:{address:value}}).then(response=>{
+        Axios.get(`${this.props.hostname}/api/user/address_auto_complete`,{params:{address:value}}).then(response=>{
             //console.log(response.data.suggestions)
             this.setState({
                 choose_address_from_suggestions:false,
@@ -106,7 +106,7 @@ export default class Profile extends Component {
             })
             return
         }
-        Axios.patch('http://127.0.0.1:5000/api/user/profile',{
+        Axios.patch(`${this.props.hostname}/api/user/profile`,{
             first_name:this.state.first_name,
             last_name:this.state.last_name,
             email:this.state.email,
@@ -130,7 +130,7 @@ export default class Profile extends Component {
                     error:error.response.data.msg
                 })
             }else{
-                Axios.post('http://127.0.0.1:5000/api/user.refresh_token',{},{
+                Axios.post(`${this.props.hostname}/api/user.refresh_token`,{},{
                     headers:{
                         Authorization:'refresh_token '+Cookies.get('refresh_token')
                     }

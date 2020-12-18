@@ -26,7 +26,7 @@ export default class CreateResponse extends Component {
         const post_id=this.props.match.params.post_id
         const comment_id=this.props.match.params.comment_id
         //console.log(this.state.response)
-        Axios.post(`http://127.0.0.1:5000/api/game/${game_title}/${post_id}/${comment_id}/create_response`,{
+        Axios.post(`${this.props.hostname}/api/game/${game_title}/${post_id}/${comment_id}/create_response`,{
            comment_text:this.state.response 
         },{
             headers:{
@@ -47,7 +47,7 @@ export default class CreateResponse extends Component {
             })
             console.log(error.response)
             if (code===440){
-                Axios.post('http://127.0.0.1:5000/api/user/refresh_token',{},{
+                Axios.post(`${this.props.hostname}/api/user/refresh_token`,{},{
                     headers:{
                         Authorization: 'refresh_token '+Cookies.get('refresh_token')
                     }

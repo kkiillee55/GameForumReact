@@ -21,7 +21,7 @@ export default class Unfollow extends Component {
 
     handleUnfollow(event){
         const game_title=this.props.match.params.game_title
-        Axios.post(`http://127.0.0.1:5000/api/game/${game_title}/unfollow`,{},{
+        Axios.post(`${this.props.hostname}/api/game/${game_title}/unfollow`,{},{
             headers:{
                 Authorization:'token '+Cookies.get('token')
             }
@@ -38,7 +38,7 @@ export default class Unfollow extends Component {
             console.log('error in unfollow: ',error.response)
             const code=error.response.status
             if(code==440){
-                Axios.post('http://127.0.0.1:5000/api/user/refresh_token',{},{
+                Axios.post(`${this.props.hostname}/api/user/refresh_token`,{},{
                     headers:{
                         Authorization:'refresh_token '+Cookies.get('refresh_token')
                     }

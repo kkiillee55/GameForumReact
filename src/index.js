@@ -28,9 +28,10 @@ import GamePosts from './game/GamePosts'
 import NewPost from './game/NewPost'
 import Follow from './game/Follow'
 import Unfollow from'./game/Unfollow'
-
-import Navbar from './Navbar'
 import DeletePost from './game/DeletePost'
+import UpdatePost from './game/UpdatePost'
+import Navbar from './Navbar'
+
 class App extends Component{
     constructor(){
         super()
@@ -42,11 +43,12 @@ class App extends Component{
 
 
     componentDidMount(){
+        const hostname='http://game-env.eba-9fppu8jx.us-east-2.elasticbeanstalk.com'
         const token=Cookies.get('token')
         const refresh_token=Cookies.get('refresh_token')
         if(token==undefined) Cookies.set('token','')
         if(refresh_token===undefined) Cookies.set('refresh_token','')
-        Axios.get('http://127.0.0.1:5000/api/index').then(res=>{
+        Axios.get(`${hostname}/api/index`).then(res=>{
             this.setState({
                 links:res.data.links,
                 msg:res.data.msg
@@ -56,6 +58,8 @@ class App extends Component{
 
 
     render(){
+        //const hostname='http://game-env.eba-9fppu8jx.us-east-2.elasticbeanstalk.com'
+        const hostname='http://game-env.eba-9fppu8jx.us-east-2.elasticbeanstalk.com'
         return(
             //seems we have to define all routes here 
             //and user links in sub components
@@ -63,34 +67,35 @@ class App extends Component{
                 <Navbar/>
                 <Router>           
                     <div>
-                        <Route exact path='/user' component={User}/>
-                        <Route exact path='/game'component={Game}/>
-                        <Route exact path='/'component={Home}/>
-                        <Route exact path='/user/login' component={Login}/>
-                        <Route exact path='/user/logout' component={Logout}/>
-                        <Route exact path='/user/profile' component={Profile}/>
-                        <Route exact path='/user/register' component={Register}/>
-                        <Route exact path='/user/forgot_password' component={ForgotPassword}/>
-                        <Route exact path='/user/reset_password/:reset_token' component={ResetPassword}/>
-                        <Route exact path='/user/request_activate_account' component={RequestActivateAccount}/>
-                        <Route exact path='/user/activate_account/:activate_token' component={ActivateAccount}/>
+                        <Route exact path='/user' render={(props) => <User  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/game' render={(props) => <Game  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/' render={(props) => <Home  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/user/login' render={(props) => <Login  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/user/logout' render={(props) => <Logout  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/user/profile' render={(props) => <Profile  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/user/register' render={(props) => <Register  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/user/forgot_password' render={(props) => <ForgotPassword  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/user/reset_password/:reset_token' render={(props) => <ResetPassword  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/user/request_activate_account' render={(props) => <RequestActivateAccount  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/user/activate_account/:activate_token' render={(props) => <ActivateAccount  hostname={hostname} {...props}/>}/>
 
 
 
 
-                        <Route exact path='/game/:game_title' component={GamePosts}/>
+                        <Route exact path='/game/:game_title' render={(props) => <GamePosts  hostname={hostname} {...props}/>}/>
 
-                        <Route exact path='/game/:game_title/:post_id' component={Post}/>
-                        <Route exact path='/game/:game_title/post/new_post' component={NewPost}/>
-                        <Route exact path='/game/:game_title/:post_id/delete' component={DeletePost}/>
-                        <Route exact path='/game/:game_title/action/follow' component={Follow}/>
-                        <Route exact path='/game/:game_title/action/unfollow' component={Unfollow}/>
+                        <Route exact path='/game/:game_title/:post_id' render={(props) => <Post  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/game/:game_title/post/new_post' render={(props) => <NewPost  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/game/:game_title/:post_id/delete' render={(props) => <DeletePost  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/game/:game_title/:post_id/update' render={(props) => <UpdatePost  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/game/:game_title/action/follow' render={(props) => <Follow  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/game/:game_title/action/unfollow' render={(props) => <Unfollow  hostname={hostname} {...props}/>}/>
 
-                        <Route exact path='/game/:game_title/:post_id/:comment_id/create_response' component={CreateResponse}/>
-                        <Route exact path='/game/:game_title/:post_id/:comment_parent_id/:comment_id/update_response' component={UpdateResponse}/>
-                        <Route exact path='/game/:game_title/:post_id/:comment_parent_id/:comment_id/delete_response' component={DeleteResponse}/>
-                        <Route exact path='/game/:game_title/:post_id/:comment_id/update_comment' component={UpdateComment}/>
-                        <Route exact path='/game/:game_title/:post_id/:comment_id/delete_comment' component={DeleteComment}/>
+                        <Route exact path='/game/:game_title/:post_id/:comment_id/create_response' render={(props) => <CreateResponse  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/game/:game_title/:post_id/:comment_parent_id/:comment_id/update_response' render={(props) => <UpdateResponse  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/game/:game_title/:post_id/:comment_parent_id/:comment_id/delete_response' render={(props) => <DeleteResponse  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/game/:game_title/:post_id/:comment_id/update_comment' render={(props) => <UpdateComment  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/game/:game_title/:post_id/:comment_id/delete_comment' render={(props) => <DeleteComment  hostname={hostname} {...props}/>}/>
                         
                         {/* <Route exact path='/user/register' component={Register}/>
                         <Route exact path='/user/logout' component={Logout}/>

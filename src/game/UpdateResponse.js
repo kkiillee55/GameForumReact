@@ -33,7 +33,7 @@ export default class UpdateResponse extends Component {
         const post_id=this.props.match.params.post_id
         const comment_parent_id=this.props.match.params.comment_parent_id
         const comment_id=this.props.match.params.comment_id
-        Axios.patch(`http://127.0.0.1:5000/api/game/${game_title}/${post_id}/${comment_parent_id}/${comment_id}/update_response`,{
+        Axios.patch(`${this.props.hostname}/api/game/${game_title}/${post_id}/${comment_parent_id}/${comment_id}/update_response`,{
             comment_text:this.state.updated_response
         },{
             headers:{
@@ -47,7 +47,7 @@ export default class UpdateResponse extends Component {
             const code=error.response.status
             console.group(code)
             if (code===440){
-                Axios.post('http://127.0.0.1/api/user/refresh_token',{},{
+                Axios.post(`${this.props.hostname}/api/user/refresh_token`,{},{
                     headers:{
                         Authorization: 'refresh_token '+Cookies.get('refresh_token')
                     }

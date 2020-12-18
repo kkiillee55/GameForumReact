@@ -11,7 +11,7 @@ export default class Game extends Component {
     }
 
     componentDidMount(){
-        Axios.get('http://127.0.0.1:5000/api/game').then(resposne=>{
+        Axios.get(`${this.props.hostname}/api/game`).then(resposne=>{
             this.setState({
                 links:resposne.data.links
             })
