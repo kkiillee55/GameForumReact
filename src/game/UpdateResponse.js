@@ -33,7 +33,7 @@ export default class UpdateResponse extends Component {
         const post_id=this.props.match.params.post_id
         const comment_parent_id=this.props.match.params.comment_parent_id
         const comment_id=this.props.match.params.comment_id
-        Axios.patch(`${this.props.hostname}/api/game/${game_title}/${post_id}/${comment_parent_id}/${comment_id}/update_response`,{
+        Axios.patch(`${this.props.hostname}/api/game/${game_title}/${post_id}/${comment_id}/${comment_parent_id}/update_response`,{
             comment_text:this.state.updated_response
         },{
             headers:{

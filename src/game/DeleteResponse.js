@@ -17,7 +17,7 @@ export default class DeleteResponse extends Component {
         const post_id=this.props.match.params.post_id
         const comment_parent_id=this.props.match.params.comment_parent_id
         const comment_id=this.props.match.params.comment_id
-        Axios.delete(`${this.props.hostname}/api/game/${game_title}/${post_id}/${comment_parent_id}/${comment_id}/delete_response`,{
+        Axios.delete(`${this.props.hostname}/api/game/${game_title}/${post_id}/${comment_id}/${comment_parent_id}/delete_response`,{
             headers:{
                 Authorization:'token '+Cookies.get('token')
             }
@@ -32,7 +32,7 @@ export default class DeleteResponse extends Component {
                 }
             }).then(response=>{
                 Cookies.set('token',response.data.token)
-                this.props.history.push(`/game/${game_title}/${post_id}/${comment_parent_id}/${comment_id}/delete_response`)
+                this.props.history.push(`/game/${game_title}/${post_id}/${comment_id}/${comment_parent_id}/delete_response`)
             }).catch(error=>{
                 this.props.history.push('/user/login')
             })

@@ -92,8 +92,8 @@ class App extends Component{
                         <Route exact path='/game/:game_title/action/unfollow' render={(props) => <Unfollow  hostname={hostname} {...props}/>}/>
 
                         <Route exact path='/game/:game_title/:post_id/:comment_id/create_response' render={(props) => <CreateResponse  hostname={hostname} {...props}/>}/>
-                        <Route exact path='/game/:game_title/:post_id/:comment_parent_id/:comment_id/update_response' render={(props) => <UpdateResponse  hostname={hostname} {...props}/>}/>
-                        <Route exact path='/game/:game_title/:post_id/:comment_parent_id/:comment_id/delete_response' render={(props) => <DeleteResponse  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/game/:game_title/:post_id/:comment_id/:comment_parent_id/update_response' render={(props) => <UpdateResponse  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/game/:game_title/:post_id/:comment_id/:comment_parent_id/delete_response' render={(props) => <DeleteResponse  hostname={hostname} {...props}/>}/>
                         <Route exact path='/game/:game_title/:post_id/:comment_id/update_comment' render={(props) => <UpdateComment  hostname={hostname} {...props}/>}/>
                         <Route exact path='/game/:game_title/:post_id/:comment_id/delete_comment' render={(props) => <DeleteComment  hostname={hostname} {...props}/>}/>
                         
