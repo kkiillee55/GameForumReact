@@ -39,7 +39,7 @@ export default class Post extends Component {
             console.log(response.data)
             window.location.reload()
         }).catch(error=>{
-            //console.log(error.response.data)
+            console.log(error.response.data)
             Axios.post(`${this.props.hostname}/api/user/refresh_token`,{},{
                 headers:{
                     Authorization:'refresh_token '+Cookies.get('refresh_token')
@@ -47,7 +47,7 @@ export default class Post extends Component {
             }).then(response=>{
                 Cookies.set('token',response.data.token)
                 console.log('require refresh token', response.data)
-                //window.location.reload(false)
+                //window.location.reload(false)s
             }).catch(error=>{
                 console.log('refresh token also expired' ,error.response.data)
                 this.props.history.push('/user/login')
@@ -98,9 +98,16 @@ export default class Post extends Component {
                     <h1>{this.state.title}</h1>
                     <h3>{this.state.author}</h3>
                     <h3>{this.state.date_posted}</h3>
+                    {
+                        this.state.post_author_login && 
+                        <Link className="smallLink" to={`/game/${game_title}/${post_id}/delete`}>Delete post</Link>
+                    }
+                    {
+                        this.state.post_author_login && 
+                        <Link className="smallLink" to={`/game/${game_title}/${post_id}/update`}>Update post</Link>
+                    }
 
-                    <Link className="smallLink" to={`/game/${game_title}/${post_id}/delete`}>Delete post</Link>
-                    <Link className="smallLink" to={`/game/${game_title}/${post_id}/update`}>Update post</Link>
+
                 </div>
                 
                 <p>{this.state.content}</p>

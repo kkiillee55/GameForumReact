@@ -44,6 +44,7 @@ class App extends Component{
 
     componentDidMount(){
         const hostname='https://f0sdwaegp6.execute-api.us-east-2.amazonaws.com/test'
+        //const hostname='http://127.0.0.1:5000'
         const token=Cookies.get('token')
         const refresh_token=Cookies.get('refresh_token')
         if(token==undefined) Cookies.set('token','')
@@ -58,8 +59,8 @@ class App extends Component{
 
 
     render(){
-        //const hostname='http://game-env.eba-9fppu8jx.us-east-2.elasticbeanstalk.com'
         const hostname='https://f0sdwaegp6.execute-api.us-east-2.amazonaws.com/test'
+        //const hostname='http://127.0.0.1:5000'
         return(
             //seems we have to define all routes here 
             //and user links in sub components

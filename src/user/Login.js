@@ -36,6 +36,7 @@ export default class Login extends Component {
             email:this.state.email,
             password:this.state.password
         }).then((response)=>{
+            console.log(response)
             Cookies.set('token',response.data.token)
             Cookies.set('refresh_token',response.data.refresh_token)
             this.setState({
@@ -47,10 +48,11 @@ export default class Login extends Component {
             // console.log(response.data)
             // console.log(this.state)
         }).catch((error)=>{
+            console.log(error.response)
             this.setState({
                 error:error.response.data.error
             })
-            console.log(error.response.data)
+            
         })
     }
 

@@ -24,13 +24,14 @@ export default class DeletePost extends Component {
         }).then(response=>{
             this.props.history.push(`/game/${game_title}`)
         }).catch(error=>{
+            console.log(error.response)
             Axios.post(`${this.props.hostname}/api/user/refresh_token`,{},{
                 headers:{
                     Authorization:'refresh_token '+Cookies.get('refresh_token')
                 }
             }).then(response=>{
                 Cookies.set('token',response.data.token)
-                this.props.history.push(`/game/${game_title}/${post_id}/delete`)
+                this.props.history.push(`/game/${game_title}`)
             }).catch(error=>{
                 this.props.history.push('/user/login')
             })
