@@ -12,7 +12,8 @@ export default class Post extends Component {
             date_posted:'',
             title:'',
             links:[],
-            your_comment:''
+            your_comment:'',
+            post_author_login:false
 
         }
         this.handleCommentChange=this.handleCommentChange.bind(this)
@@ -73,7 +74,8 @@ export default class Post extends Component {
                 content:response.data.content,
                 date_posted:response.data.date_posted,
                 title:response.data.title,
-                links:response.data.links
+                links:response.data.links,
+                post_author_login:response.data.post_author_login
             })
         }).catch(error=>{
             console.log(error.response)
