@@ -10,8 +10,10 @@ export default class GamePosts extends Component {
             links:[],
             error:'',
             platform:[],
-            posts:[]
+            posts:[],
+            no_more_posts:false
         }
+        this.handleLoad=this.handleLoad.bind(this)
     }
 
     componentDidMount(){
@@ -29,6 +31,35 @@ export default class GamePosts extends Component {
             })
         })
     }
+    
+    handleLoad(event){
+        let next_page=''
+        for(let i=0;i<this.state.links.length;i++){
+            if (this.state.links[i].rel=='next') next_page=this.state.links[i].href
+        }
+        console.log(next_page===null)
+        if (next_page==='' || next_page===null){
+            this.setState(
+                {
+                    no_more_posts:true
+                }
+            )
+            return
+        }
+        Axios.get(`${this.props.hostname}${next_page}`,{
+            headers:{
+                Authorization:'token '+Cookies.get('token') 
+            }
+        }).then(response=>{
+            this.setState({
+                ...this.state,
+                links:response.data.links,
+                posts:[...this.state.posts,...response.data.posts]
+            })
+        })
+    }
+
+
     render() {
         const game_title=this.props.match.params.game_title
         return (
@@ -66,6 +97,12 @@ export default class GamePosts extends Component {
                         
                     })
                 }
+                <br/>
+                {
+                    this.state.no_more_posts &&
+                    <h2>no more posts haha</h2>
+                }
+                <button onClick={this.handleLoad}>Load More ...</button>
             </div>
         )
     }
