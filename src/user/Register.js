@@ -98,7 +98,7 @@ export default class Register extends Component {
                 <h1>smarty streets</h1>
                 
                 {
-                    this.state!==undefined && this.state.error.length!==0 &&
+                    this.state.error!==undefined && this.state.error.length!==0 &&
                     <h2>{this.state.error}</h2>
                 
                 }
