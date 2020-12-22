@@ -36,10 +36,13 @@ export default class GamePosts extends Component {
     
     handleLoad(event){
         let next_page=''
-        for(let i=0;i<this.state.links.length;i++){
-            if (this.state.pages[i].rel=='next') next_page=this.state.pages[i].href
+        for(let i=0;i<this.state.pages.length;i++){
+            if (this.state.pages[i].rel=='next') {
+                next_page=this.state.pages[i].href
+            }
+            
         }
-        console.log(next_page===null)
+        console.log(next_page)
         if (next_page==='' || next_page===null){
             this.setState(
                 {
@@ -53,6 +56,7 @@ export default class GamePosts extends Component {
                 Authorization:'token '+Cookies.get('token') 
             }
         }).then(response=>{
+            console.log(response)
             this.setState({
                 ...this.state,
                 links:response.data.links,
