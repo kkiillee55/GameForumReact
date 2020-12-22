@@ -11,7 +11,8 @@ export default class GamePosts extends Component {
             error:'',
             platform:[],
             posts:[],
-            no_more_posts:false
+            no_more_posts:false,
+            pages:[]
         }
         this.handleLoad=this.handleLoad.bind(this)
     }
@@ -27,7 +28,8 @@ export default class GamePosts extends Component {
             this.setState({
                 links:response.data.links,
                 platform:response.data.platform,
-                posts:response.data.posts
+                posts:response.data.posts,
+                pages:response.data.pages
             })
         })
     }
@@ -35,7 +37,7 @@ export default class GamePosts extends Component {
     handleLoad(event){
         let next_page=''
         for(let i=0;i<this.state.links.length;i++){
-            if (this.state.links[i].rel=='next') next_page=this.state.links[i].href
+            if (this.state.pages[i].rel=='next') next_page=this.state.pages[i].href
         }
         console.log(next_page===null)
         if (next_page==='' || next_page===null){
@@ -54,7 +56,8 @@ export default class GamePosts extends Component {
             this.setState({
                 ...this.state,
                 links:response.data.links,
-                posts:[...this.state.posts,...response.data.posts]
+                posts:[...this.state.posts,...response.data.posts],
+                pages:response.data.pages
             })
         })
     }
