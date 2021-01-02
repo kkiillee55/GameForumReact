@@ -66,7 +66,7 @@ export default class CreateGame extends Component {
         })
 
         console.log(this.state)
-        Axios.post(`${this.props.hostname}/api/game/create_game`,{
+        Axios.post(`${this.props.hostname}/api/game/create-game`,{
             game_title:this.state.game_title,
             release_date:this.state.release_date,
             platforms:platforms
@@ -81,6 +81,7 @@ export default class CreateGame extends Component {
             this.setState({
                 msg:error.response.data.msg
             })
+            console.log('error:',error.response)
         })
         
 
