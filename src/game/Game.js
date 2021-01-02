@@ -11,10 +11,16 @@ export default class Game extends Component {
     }
 
     componentDidMount(){
-        Axios.get(`${this.props.hostname}/api/game`).then(resposne=>{
+        Axios.get(`${this.props.hostname}/api/game/`,{
+            headers:{
+                Authorization:'token '+Cookies.get('token')
+            }
+        }).then(resposne=>{
             this.setState({
                 links:resposne.data.links
             })
+        }).catch(error=>{
+            console.log(error.resposne)
         })
     }
 

@@ -31,6 +31,8 @@ import Unfollow from'./game/Unfollow'
 import DeletePost from './game/DeletePost'
 import UpdatePost from './game/UpdatePost'
 import Navbar from './Navbar'
+import DeleteGame from './game/DeleteGame'
+import CreateGame from './game/CreateGame'
 
 class App extends Component{
     constructor(){
@@ -43,8 +45,8 @@ class App extends Component{
 
 
     componentDidMount(){
-        const hostname='https://f0sdwaegp6.execute-api.us-east-2.amazonaws.com/test'
-        //const hostname='http://127.0.0.1:5000'
+        //const hostname='https://f0sdwaegp6.execute-api.us-east-2.amazonaws.com/test'
+        const hostname='http://127.0.0.1:5000'
         const token=Cookies.get('token')
         const refresh_token=Cookies.get('refresh_token')
         if(token==undefined) Cookies.set('token','')
@@ -59,8 +61,8 @@ class App extends Component{
 
 
     render(){
-        const hostname='https://f0sdwaegp6.execute-api.us-east-2.amazonaws.com/test'
-        //const hostname='http://127.0.0.1:5000'
+        //const hostname='https://f0sdwaegp6.execute-api.us-east-2.amazonaws.com/test'
+        const hostname='http://127.0.0.1:5000'
         return(
             //seems we have to define all routes here 
             //and user links in sub components
@@ -91,6 +93,8 @@ class App extends Component{
                         <Route exact path='/game/:game_title/:post_id/update' render={(props) => <UpdatePost  hostname={hostname} {...props}/>}/>
                         <Route exact path='/game/:game_title/action/follow' render={(props) => <Follow  hostname={hostname} {...props}/>}/>
                         <Route exact path='/game/:game_title/action/unfollow' render={(props) => <Unfollow  hostname={hostname} {...props}/>}/>
+                        <Route exact path='/game/:game_title/action/delete_game' render={(props)=><DeleteGame hostname={hostname} {...props}/>}/>
+                        <Route exact path='/game/temp/action/create_game' render={(props)=><CreateGame hostname={hostname} {...props}/>}/>
 
                         <Route exact path='/game/:game_title/:post_id/:comment_id/create_response' render={(props) => <CreateResponse  hostname={hostname} {...props}/>}/>
                         <Route exact path='/game/:game_title/:post_id/:comment_id/:comment_parent_id/update_response' render={(props) => <UpdateResponse  hostname={hostname} {...props}/>}/>
