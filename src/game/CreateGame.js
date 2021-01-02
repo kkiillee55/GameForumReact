@@ -12,7 +12,8 @@ export default class CreateGame extends Component {
             game_title:'',
             release_date:'',
             platforms:[],
-            existing_platforms:[]
+            existing_platforms:[],
+            msg:''
         }
         this.handleChange=this.handleChange.bind(this)
         this.handlePlatform=this.handlePlatform.bind(this)
@@ -77,7 +78,9 @@ export default class CreateGame extends Component {
             this.props.history.push(`/game/${this.state.game_title}`)
         }).catch(error=>{
             // this.props.history.push(`/game`)
-            console.log(error.response)
+            this.setState({
+                msg:error.response.data.msg
+            })
         })
         
 
@@ -88,7 +91,10 @@ export default class CreateGame extends Component {
         console.log(this.state)
         return (
             <div>
-
+                {
+                    this.state.msg!=='' &&
+                    <h1>{this.state.msg}</h1>
+                }
                 <form onSubmit={this.handleSubmit}>
 
                     <label>
